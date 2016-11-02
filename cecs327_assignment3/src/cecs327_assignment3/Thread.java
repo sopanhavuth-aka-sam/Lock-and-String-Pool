@@ -63,7 +63,7 @@ public class Thread implements Runnable{
             }         
          }
       
-      	 lock.lock();
+      	 curr.lock(); pred.lock();
      	 try {
 		 
             if(Validate(pred, curr)) { //validate
