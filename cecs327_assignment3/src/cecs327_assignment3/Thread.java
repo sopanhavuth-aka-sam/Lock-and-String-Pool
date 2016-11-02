@@ -47,9 +47,9 @@ public class Thread implements Runnable{
 		return count;
 	}
 	
-      public boolean SearchAndReplace () {
-     	 Random rn = new Random();
-      
+      private boolean SearchAndReplace () {
+     	Random rn = new Random();
+      	Node curr;
       	int index = rn.nextInt(stringPool.length);
       	String targetToRemove = stringPool[index]; //replace this string           
       	index = rn.nextInt(stringPool.length);
@@ -57,8 +57,8 @@ public class Thread implements Runnable{
       
       	for(int i = 0; i < stringArray.length; i++) {
          
-            if(stringArray[i].equals(targetToRemove)) {
-                index = i;
+            if([i].equals(targetToRemove)) {
+                curr = [i];
                 break;
             }         
          }
@@ -79,6 +79,10 @@ public class Thread implements Runnable{
             lock.unlock();
          }     
            
+     }
+	
+     private boolean validate(Node pred, Node curr) {    
+	return  !pred.marked && !curr.marked && pred.next == curr;   
      }
 
 }
