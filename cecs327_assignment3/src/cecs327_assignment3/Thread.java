@@ -47,50 +47,46 @@ public class Thread implements Runnable{
 		return count;
 	}
 	
-      private boolean SearchAndReplace () {
-     	Random rn = new Random();
-      	Node pred, curr;
-	      
-      	ring targetToRemove = stringPool[rn.nextInt(stringPool.length)]; //replace this string           
-     	String targetToAdd = stringPool[rn.nextInt(stringPool.length)]; //with this string
-      
-      	for(int i = 0; i < stringArray.length; i++) {
-         
-            if(stringArray[i].equals(targetToRemove)) {
-		pred = stringArray[i - 1] 
-                curr = stringArray[i];
-                break;
-            }         
-         }
-      
-      	 curr.lock(); pred.lock();
-     	 try {
-		 
-            if(Validate(pred, curr)) { //validate
-              if(!curr.equals(targetToRemove)) {
-		 return false;     
-	      }
-            }
-         
-            else {
-               curr.logicalRemove();
-	       curr = targetToAdd;
-	       
-	    }
-         }
-      
-         finally {
-            curr.unlock();
-         }    
-	 
-	 finally {
-	    pred.unlock();	 
-	 }
-           
-     }
-	
-     private boolean validate(Node pred, Node curr) {    
-	return  !pred.marked && !curr.marked && pred.next == curr;   
-     }
+	private boolean SearchAndReplace () {
+	  Random rn = new Random();
+
+
+	  String targetToRemove = stringPool[rn.nextInt(stringPool.length)]; //replace this string           
+	  String targetToAdd = stringPool[rn.nextInt(stringPool.length)]; //with this string
+
+	  //while(true) {
+
+	  Node curr;
+
+	  for(int i = 0; i < stringArray.length; i++) {
+
+	      if(stringArray[i].getString().equals(targetToRemove)) {		
+		  curr = stringArray[i];
+		  curr.lock();
+
+		  try {
+
+		  //validate
+		      if(curr.getString().equals(targetToRemove)) { //string not found
+			  curr = targetToAdd;
+			  return true;     
+		      } 
+
+		      else
+			  i = 0;
+
+		  }
+
+		  finally {
+		      curr.unlock();
+		  } 
+
+	      }         
+	  }
+
+	  return false;
+
+	}
+     
 
 }
