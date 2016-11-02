@@ -50,10 +50,9 @@ public class Thread implements Runnable{
       private boolean SearchAndReplace () {
      	Random rn = new Random();
       	Node pred, curr;
-      	int index = rn.nextInt(stringPool.length);
-      	String targetToRemove = stringPool[index]; //replace this string           
-      	index = rn.nextInt(stringPool.length);
-     	String targetToAdd = stringPool[index]; //with this string
+	      
+      	ring targetToRemove = stringPool[rn.nextInt(stringPool.length)]; //replace this string           
+     	String targetToAdd = stringPool[rn.nextInt(stringPool.length)]; //with this string
       
       	for(int i = 0; i < stringArray.length; i++) {
          
