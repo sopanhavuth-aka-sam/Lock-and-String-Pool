@@ -46,5 +46,39 @@ public class Thread implements Runnable{
 		}
 		return count;
 	}
+	
+      public boolean SearchAndReplace () {
+     	 Random rn = new Random();
+      
+      	int index = rn.nextInt(stringPool.length);
+      	String targetToRemove = stringPool[index]; //replace this string           
+      	index = rn.nextInt(stringPool.length);
+     	String targetToAdd = stringPool[index]; //with this string
+      
+      	for(int i = 0; i < stringArray.length; i++) {
+         
+            if(stringArray[i].equals(targetToRemove)) {
+                index = i;
+                break;
+            }         
+         }
+      
+      	 lock.lock();
+     	 try {
+		 
+            if(stringArray[index].equals(targetToRemove)) { //validate
+               stringArray[index] = targetToAdd;
+               return true;
+            }
+         
+            else
+               return false;
+         }
+      
+         finally {
+            lock.unlock();
+         }     
+           
+     }
 
 }
